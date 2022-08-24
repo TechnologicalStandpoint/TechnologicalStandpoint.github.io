@@ -23,7 +23,7 @@ function assignInput(button, input) {
   }
 };
 
-//Clears the output screen
+//Clears the output
 _clear.onclick = function() {
   _output.innerHTML = "";
 }
@@ -33,4 +33,6 @@ _clear.onclick = function() {
 _equal.onclick = function() {
   const formula = _output.innerHTML;
   const arrFormula = formula.split("");
+
+  // Puts 
 }
