@@ -1,6 +1,7 @@
 .main {
   border-color: yellow;
-  background-color: lightblue;
+  background-color:rgba(4, 15, 104, 0.4);
+  z-index: 0.5;
 }
 
 .input {
@@ -104,4 +105,16 @@ table {
     font-size: 10px;
   }
 }
+
+li {
+  display: inline;
+  margin: 0px 30px 0px 30px;
+  font-size: 25px;
+  list-style-type: none;
+}
   
+
+a {
+  text-decoration: none;
+  color: white;
+}
