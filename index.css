@@ -6,11 +6,6 @@
   --main-gray: #303841;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  border: solid;
-}
 
 #list {
   list-style-type: none;
