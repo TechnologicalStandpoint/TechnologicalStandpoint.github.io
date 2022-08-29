@@ -33,6 +33,45 @@ _clear.onclick = function() {
 _equal.onclick = function() {
   const formula = _output.innerHTML;
   const arrFormula = formula.split("");
+  const opStack = [];
+  const output = [];
 
   // Puts 
+
+  arrFormula.forEach(char => {
+    switch(char) {
+      case '(': 
+        opStack.push(char);
+      
+      case ')':
+        // Case calculates operations of the current parethenese's
+        i = opStack.pop();
+        while (i !== '(') {
+          output.push(i)
+          i = opStack.pop();
+        }
+
+      case '^':
+        opStack.push(char);
+        
+      case '+':
+        opStack.push(char);
+      
+      case '-': 
+        opStack.push(char);
+
+      case '*':
+        opStack.push(char);
+
+      case '/':
+        opStack.push(char);
+      
+      default:
+        break;
+    }
+  });
+}
+
+function removePrecednce(char) {
+
 }
