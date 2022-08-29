@@ -89,7 +89,8 @@ _equal.onclick = function() {
 
 // Helper function that solves the two cases of adding an operator to the opStack
 // 1) If the top element has the same or lower precedence, it pushes the new operator to the opStack
-// 2) 
+// 2) If the top element of the opStack has a higher precedence than the operator to be added then
+// each operator must be popped until the top element is of equal or less precedence
 function removeOperator(op) {
 
   let top = opStack[opStack.length-1];
@@ -109,4 +110,20 @@ function removeOperator(op) {
     }
     opStack.push(op);
   }
+}
+
+const evaluatePostfix = () => {
+  const operands = [];
+
+  output.forEach(char =>{
+    switch(char) {
+      case '':
+
+        break;
+
+      default:
+        operands.push(char);
+        break;
+    }
+  })
 }
