@@ -4,22 +4,26 @@
 
 const _output = document.getElementById('output');
 const _clear = document.getElementById('clear');
-const _equal = document.getElementById('equals');
-const buttonInputs = document.getElementsByClassName("input");
+const _equal = document.getElementById('equal');
+const operands = document.getElementsByClassName("operand");
+const operators = document.getElementsByClassName("operator");
 
 // Map defining the precedence of the operators
 const _operators = {'^': 3, '/': 2, 'x': 2, '+': 1, '-': 1};
 const opStack = [];
 let output = [];
 
-// Assigns an anymous function to each input button on the calculator
-for (let i=0; i < buttonInputs.length; i++) {
-
-  assignInput(buttonInputs[i], buttonInputs[i].innerHTML);
-
+// Assigns an anonymous function to each operand button on the calculator
+for (let i=0; i< operands.length; i++) {
+  assignInput(operands[i], operands[i].innerHTML);
 }
 
-//Adds click events to the numbers and BEDMAS operators buttons
+// Assigns an anonymous function to each operator on the calculator
+for (let i=0; i< operators.length; i++) {
+  assignInput(operators[i], ' '+operators[i].innerHTML+' ');
+}
+
+// Adds click events to the numbers and BEDMAS operators buttons
 function assignInput(button, input) {
 
   button.onclick = function() {
@@ -27,16 +31,18 @@ function assignInput(button, input) {
   }
 };
 
-//Clears the output
-_clear.onclick = function() {
+// Clears the output
+_clear.addEventListener('click', event => {
+  console.log(typeof _clear);
   _output.innerHTML = "";
-}
+});
 
 
 // Logic for computing a basic input with respect to BEDMAS
 _equal.onclick = function() {
+  console.log(output);
   const formula = _output.innerHTML;
-  const arrFormula = formula.split("");
+  const arrFormula = formula.split(" ");
   output = [];
 
   // Converts from infix to postfix form
@@ -84,7 +90,7 @@ _equal.onclick = function() {
   while (opStack.length !== 0) {
     output.push(opStack.pop());
   }
-  _output.innerHTML = output.join('');
+  _output.innerHTML = evaluatePostfix();
 }
 
 // Helper function that solves the two cases of adding an operator to the opStack
@@ -92,7 +98,6 @@ _equal.onclick = function() {
 // 2) If the top element of the opStack has a higher precedence than the operator to be added then
 // each operator must be popped until the top element is of equal or less precedence
 function removeOperator(op) {
-
   let top = opStack[opStack.length-1];
   if (opStack.length === 0) {
 
@@ -117,13 +122,20 @@ const evaluatePostfix = () => {
 
   output.forEach(char =>{
     switch(char) {
-      case '':
-
+      case 'x':
+        console.log(char);
+        const p1 = operands.pop();
+        const p2 = operands.pop();
+        const product = p1*p2;
+        operands.push(product);
         break;
 
       default:
+        console.log(char);
         operands.push(char);
         break;
     }
   })
+
+  return operands.join('');
 }
