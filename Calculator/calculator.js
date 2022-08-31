@@ -9,7 +9,7 @@ const operands = document.getElementsByClassName("operand");
 const operators = document.getElementsByClassName("operator");
 
 // Map defining the precedence of the operators
-const _operators = {'^': 3, '/': 2, 'x': 2, '+': 1, '-': 1};
+const _operators = { '^': 3, '/': 2, 'x': 2, '+': 1, '-': 1};
 const opStack = [];
 let output = [];
 
@@ -51,45 +51,27 @@ function infixToPostfix() {
   // Converts from infix to postfix form
   arrFormula.forEach(char => {
 
-    switch(char) {
-      case '(': 
-        opStack.push(char);
-        break;
-      case ')':
-        // Case calculates operations of the current parethenese's
+    if (char === '(') { 
+      opStack.push(char);
+    }
+    else if (char ===')') {
+      // Case calculates operations in the current parethenese's
+      i = opStack.pop();
+      while (i !== '(') {
+        output.push(i)
         i = opStack.pop();
-        while (i !== '(') {
-          output.push(i)
-          i = opStack.pop();
-        }
-        break;
+      }
 
-      case '^':
-        removeOperator(char);
-        break;
-        
-      case '+':
-        removeOperator(char);
-        break;
+    }
 
-      case '-': 
-        removeOperator(char);
-        break;
-
-      case 'x':
-        removeOperator(char);
-        break;
-
-      case '/':
-        removeOperator(char);
-        break;
-
-      default:
-        output.push(char);
-        break;
+    else if (isOperator(char)) {
+      removeOperator(char);
+    } 
+      
+    else if((!isOperator(char)) && (char !== '')) {
+      output.push(char);
     }
   });
-  
   while (opStack.length !== 0) {
     output.push(opStack.pop());
   }
@@ -125,6 +107,7 @@ function removeOperator(op) {
 const evaluatePostfix = () => {
   const operands = [];
 
+  console.log(output);
   output.forEach(char => {
 
     if (!isOperator(char)) {
@@ -143,8 +126,15 @@ const evaluatePostfix = () => {
 
 const isOperator = input => {
   switch(input) {
+    case '(':
+      return true;
+
+    case ')':
+      return true;
+
     case '^':
       return true;
+
     case 'x':
       return true;
 
