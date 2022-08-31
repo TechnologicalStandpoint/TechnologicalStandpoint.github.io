@@ -39,6 +39,11 @@ _clear.addEventListener('click', event => {
 
 // Logic for computing a basic input with respect to BEDMAS
 _equal.onclick = function() {
+  infixToPostfix();
+}
+// @param None
+// Converts an infix expression to a postfix expression
+function infixToPostfix() {
   const formula = _output.innerHTML;
   const arrFormula = formula.split(" ");
   output = [];
@@ -88,6 +93,7 @@ _equal.onclick = function() {
   while (opStack.length !== 0) {
     output.push(opStack.pop());
   }
+  console.log(output);
   _output.innerHTML = evaluatePostfix();
 }
 
@@ -122,12 +128,14 @@ const evaluatePostfix = () => {
   output.forEach(char => {
 
     if (!isOperator(char)) {
-      operands.push(char);
+      operands.push(Number(char));
     } else {
-      const op1 = operands.pop();
       const op2 = operands.pop();
+      const op1 = operands.pop();
       operands.push(calculateExpr(char, op1, op2));
     }
+
+    console.log(operands);
     
   });
   return operands.join('');
@@ -135,6 +143,8 @@ const evaluatePostfix = () => {
 
 const isOperator = input => {
   switch(input) {
+    case '^':
+      return true;
     case 'x':
       return true;
 
