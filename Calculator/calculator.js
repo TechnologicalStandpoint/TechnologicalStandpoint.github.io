@@ -33,14 +33,12 @@ function assignInput(button, input) {
 
 // Clears the output
 _clear.addEventListener('click', event => {
-  console.log(typeof _clear);
   _output.innerHTML = "";
 });
 
 
 // Logic for computing a basic input with respect to BEDMAS
 _equal.onclick = function() {
-  console.log(output);
   const formula = _output.innerHTML;
   const arrFormula = formula.split(" ");
   output = [];
@@ -117,25 +115,55 @@ function removeOperator(op) {
   }
 }
 
+// Evaluates a Postfix expression, returns a final number
 const evaluatePostfix = () => {
   const operands = [];
 
-  output.forEach(char =>{
-    switch(char) {
-      case 'x':
-        console.log(char);
-        const p1 = operands.pop();
-        const p2 = operands.pop();
-        const product = p1*p2;
-        operands.push(product);
-        break;
+  output.forEach(char => {
 
-      default:
-        console.log(char);
-        operands.push(char);
-        break;
+    if (!isOperator(char)) {
+      operands.push(char);
+    } else {
+      const op1 = operands.pop();
+      const op2 = operands.pop();
+      operands.push(calculateExpr(char, op1, op2));
     }
-  })
-
+    
+  });
   return operands.join('');
+}
+
+const isOperator = input => {
+  switch(input) {
+    case 'x':
+      return true;
+
+    case '/':
+      return true;
+
+    case '+':
+      return true;
+    
+    case '-':
+      return true;
+
+    default:
+      return false;
+  }
+}
+
+const calculateExpr = (op, op1, op2) => { 
+
+  switch(op) {
+    case 'x':
+      return op1*op2;
+    case '/': 
+      return op1/op2;
+    case '^':
+      return op1**op2;
+    case '+':
+      return op1+op2;
+    case '-':
+      return op1-op2;
+  }
 }
