@@ -28,14 +28,16 @@
 }
 
 #output {
-  width: 100%;
+  width: 95%;
+  font-size: 30px;
   resize: none;
   margin-left: auto;
   margin-right: auto;
   border-style: solid;
   border-width: 2px;
   border-color: black;
-  height: 50px;
+  height: 70px;
+  background-color: white;
 }
 
 .calculator {
@@ -43,7 +45,7 @@
   height: fit-content;
   margin-left: auto;
   margin-right: auto;
-  background-color: white;
+  background-color: dimgray;
   border: solid;
   border-radius: 10px;
   padding: 5px;
@@ -55,7 +57,6 @@ table {
 }
 
 #calculator-buttons {
-  border: 1cm;
   
 }
 
